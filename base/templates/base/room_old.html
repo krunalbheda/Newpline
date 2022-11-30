@@ -1,0 +1,64 @@
+{% extends 'main.html' %} {% block contant %}
+
+<style>
+  .room-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+</style>
+
+<div class="room-container">
+  <div>
+    <h2>{{room.name}}</h2>
+    <p>{{room.description}}</p>
+
+    <div class="comment-wrapper">
+      <h3>Converstion</h3>
+      <hr />
+
+     
+        
+      {% for msg in room_messages %}
+      
+      <div>
+        
+        {% comment %} error aave che {% endcomment %}
+        {% comment %} {% if request.user == message.user %}
+        <a href="{% url 'delete-message' message.id %}">Delete</a>
+        {% endif %}
+          {% endcomment %}
+
+
+      <small>@{{msg.user}} {{msg.created|timesince}}</small><br />
+      <p>{{msg.body}}</p>
+      <hr />
+    </div>
+
+      {% endfor %}
+    </div>
+
+    {% if request.user.is_authenticated %}
+    <div>
+      <form method="POST" action="">
+        {% csrf_token %}
+
+        <input type="text" name="body" placeholder="Write messages here..." />
+      </form>
+    </div>
+    {% endif %}
+  </div>
+
+  <div>
+    <h3>Participants</h3>
+    <hr>
+        {% for user in participants %}
+        <div>
+            <p>@{{user.username}}</p>
+        </div>
+        {% endfor %}
+    
+    
+  </div>
+</div>
+
+{% endblock %}
