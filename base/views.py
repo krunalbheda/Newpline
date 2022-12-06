@@ -21,6 +21,13 @@ from django.http import HttpResponse
 # ]
 User = get_user_model()
 
+
+def sucess(request):
+    return(request,'base/sucess.html')
+
+def token_send(request):
+    return(request,'base/token_send.html',{'token_send':token_send})
+
 # login page
 def loginpage(request):
     
